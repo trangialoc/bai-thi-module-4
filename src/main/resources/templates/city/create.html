@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style th:replace="/layout::css"></style>
+    <style>
+        #form{
+            margin-left: 500px;
+        }
+    </style>
+    <style>
+        #111{
+            padding-left: 700px;
+            color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<form id="form" th:action="@{/city/create}" method="post" th:object="${city}">
+    <label>Name:
+        <input type="text" th:field="*{name}" required>
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </label>
+    <label>Area:
+        <input type="text" th:field="*{area}" required>
+        <span th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></span>
+    </label>
+
+    <label>Population:
+        <input type="text" th:field="*{population}" required>
+        <span th:if="${#fields.hasErrors('population')}" th:errors="*{population}"></span>
+    </label>
+    <label>Gdp:
+        <input type="text" th:field="*{gdp}" required>
+        <span th:if="${#fields.hasErrors('gdp')}" th:errors="*{gdp}"></span>
+    </label>
+    <label>description:
+        <input type="text" th:field="*{description}" required>
+        <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+    </label>
+
+    <label>Country:
+        <select th:field="*{country}">
+            <option th:each="c : ${country}" th:value="${c.getId()}" th:text="${c.getName()}"></option>
+        </select>
+    </label>
+    <button type="submit">Create</button>
+
+</form>
+<h4 th:class="notify" th:if="${status}">
+   <p style="color: blue">"Create Successfully"</p>
+</h4>
+<a th:href="@{/city}">Back to home</a>
+<footer th:replace="/layout::footer"></footer>
+</body>
+</html>
